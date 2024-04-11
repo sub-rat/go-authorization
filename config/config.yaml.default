@@ -1,4 +1,4 @@
-Name: echo-admin
+Name: go-authorization
 
 Log:
   Level: debug
@@ -12,7 +12,7 @@ HTTP:
 
 SuperAdmin:
   Username: root
-  Realname: 超级管理员
+  FullName: SuperAdmin
   Password: 123123
 
 Auth:
@@ -21,7 +21,6 @@ Auth:
   IgnorePathPrefixes:
     - /pprof
     - /swagger
-    - /api/v1/publics/captcha
     - /api/v1/publics/user/login
 
 Casbin:
@@ -33,7 +32,6 @@ Casbin:
     - /pprof
     - /swagger
     - /api/v1/publics/user
-    - /api/v1/publics/captcha
 
 Redis:
   Host: 172.16.217.2
@@ -42,13 +40,13 @@ Redis:
   KeyPrefix: r
 
 Database:
-  Engine: mysql
-  Name: clean
-  Host: 172.16.217.2
-  Port: 3306
-  Username: root
-  Password: sqlpass
-  TablePrefix: t
+  Engine: postgres
+  Name: go_authorization
+  Host: 0.0.0.0
+  Port: 5432
+  Username: postgres
+  Password: password
+  TablePrefix: go
   Parameters: charset=utf8mb4&parseTime=True&loc=Local&allowNativePasswords=true&timeout=5s
   MaxLifetime: 7200
   MaxOpenConns: 150
