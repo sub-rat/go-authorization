@@ -140,7 +140,7 @@ func (a CasbinAdapter) loadRolePolicy(m casbinModel.Model) error {
 	mMenuResources := menuResourceQR.List.ToActionIDMap()
 
 	for _, role := range roleQR.List {
-		mcache := make(map[string]struct{})
+		mCache := make(map[string]struct{})
 		roleMenus, ok := mRoleMenus[role.ID]
 		if !ok {
 			continue
@@ -155,11 +155,11 @@ func (a CasbinAdapter) loadRolePolicy(m casbinModel.Model) error {
 			for _, mr := range mrs {
 				if mr.Path == "" || mr.Method == "" {
 					continue
-				} else if _, ok := mcache[mr.Path+mr.Method]; ok {
+				} else if _, ok := mCache[mr.Path+mr.Method]; ok {
 					continue
 				}
 
-				mcache[mr.Path+mr.Method] = struct{}{}
+				mCache[mr.Path+mr.Method] = struct{}{}
 				line := fmt.Sprintf("p,%s,%s,%s", role.ID, mr.Path, mr.Method)
 				persist.LoadPolicyLine(line, m)
 			}
