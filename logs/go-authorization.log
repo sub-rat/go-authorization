@@ -1665,3 +1665,56 @@ net/http.serverHandler.ServeHTTP
 net/http.(*conn).serve
 	/usr/local/go/src/net/http/server.go:2039
 2024-04-11 09:11:02	INFO	middlewares/core_middleware.go:81	rolling back transaction due to status code: 404	{"module": "core-mw"}
+2024-04-11 13:28:45	INFO	lib/db.go:45	Database connection established
+2024-04-11 13:28:45	INFO	lib/redis.go:37	Redis connection established
+2024-04-11 13:28:46	INFO	service/casbin_service.go:251	Model: [p p sub, obj, act][g g _, _][e e some(where (p_eft == allow))][m m g(r_sub, p_sub) && keyMatch2(r_obj, p_obj) && regexMatch(r_act, p_act) || r_sub == "root"][r r sub, obj, act]	{"module": "casbin"}
+2024-04-11 13:28:46	INFO	service/casbin_service.go:294	Policy: p : []g : []	{"module": "casbin"}
+2024-04-11 13:28:46	INFO	bootstrap/bootstrap.go:51	Starting Application
+2024-04-11 13:28:46	INFO	middlewares/core_middleware.go:97	setting up core middleware
+2024-04-11 13:28:46	INFO	middlewares/zap_middleware.go:76	Setting up zap middleware
+2024-04-11 13:28:46	INFO	middlewares/cors_middleware.go:23	Setting up cors middleware
+2024-04-11 13:28:46	INFO	middlewares/auth_middleware.go:73	Setting up auth middleware
+2024-04-11 13:28:46	INFO	middlewares/casbin_middleware.go:69	Setting up casbin middleware
+2024-04-11 13:28:46	INFO	routes/routes.go:43	Setting Up Routes
+2024-04-11 13:28:46	INFO	routes/menu_route.go:29	Setting up menu routes
+2024-04-11 13:28:46	INFO	routes/pprof_route.go:29	Setting up pprof routes
+2024-04-11 13:28:46	INFO	routes/public_route.go:29	Setting up public routes
+2024-04-11 13:28:46	INFO	routes/role_route.go:29	Setting up role routes
+2024-04-11 13:28:46	INFO	routes/swagger_route.go:44	Setting up swagger routes
+2024-04-11 13:28:46	INFO	routes/user_route.go:29	Setting up user routes
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:04	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "758.229µs", "host": "localhost:2222", "request": "GET /swagger/index.html", "status": 200, "size": 0, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "iELGliozbBeMDCetjQKGJzmiLieEUfWd"}
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:04	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "406.405µs", "host": "localhost:2222", "request": "GET /swagger/swagger-ui.css", "status": 200, "size": 144966, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "qRYGyZXIBBzjmdhkyfVWIvZUeMAcqcEU"}
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:04	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "7.825947ms", "host": "localhost:2222", "request": "GET /swagger/swagger-ui-bundle.js", "status": 200, "size": 1061579, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "YnzcugbiFAODqGHyoFicxBDNVjqImjqU"}
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:04	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "805.475µs", "host": "localhost:2222", "request": "GET /swagger/swagger-ui-standalone-preset.js", "status": 200, "size": 312217, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "NeaYwmdZAdTjhJEEQfjcjnttDxVErVgC"}
+2024-04-11 13:29:04	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:05	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "2.134922ms", "host": "localhost:2222", "request": "GET /swagger/doc.json", "status": 200, "size": 0, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "jyAWlxzBBuMyjmnMvvELoJjnHdqFuTXN"}
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:05	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "100.008µs", "host": "localhost:2222", "request": "GET /swagger/favicon-32x32.png", "status": 200, "size": 628, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "VrITNBnNwnLuiJMXjUpmjdSvwdoHaUiD"}
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:05	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "173.062µs", "host": "localhost:2222", "request": "GET /swagger/index.html", "status": 200, "size": 0, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "GbsxPNVaCYrtdhHZKvABJJSvmVIspZEo"}
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:05	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "278.354µs", "host": "localhost:2222", "request": "GET /swagger/swagger-ui.css", "status": 200, "size": 144966, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "WROBQYKBCWpIVByofdXixHYodbZoOiwb"}
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:05	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "1.335349ms", "host": "localhost:2222", "request": "GET /swagger/swagger-ui-standalone-preset.js", "status": 200, "size": 312217, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "ecSAoDCXyCBVkBYpEgTRWcujbdcaXCXL"}
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:05	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "8.263444ms", "host": "localhost:2222", "request": "GET /swagger/swagger-ui-bundle.js", "status": 200, "size": 1061579, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "cnCRJIZYqnQXtvURYnTKdUdioaXTuhjX"}
+2024-04-11 13:29:05	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:06	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:06	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "641.791µs", "host": "localhost:2222", "request": "GET /swagger/doc.json", "status": 200, "size": 0, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "HLqrEODMGKfUNHJWxEfhqXGhXjIkXkTT"}
+2024-04-11 13:29:06	INFO	middlewares/core_middleware.go:85	committing transactions
+2024-04-11 13:29:06	INFO	middlewares/core_middleware.go:49	beginning database transaction	{"module": "core-mw"}
+2024-04-11 13:29:06	INFO	middlewares/zap_middleware.go:67	Success	{"module": "log-mw", "remote_ip": "::1", "time": "71.06µs", "host": "localhost:2222", "request": "GET /swagger/favicon-32x32.png", "status": 200, "size": 628, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "request_id": "nldIwVtvXnzuBnHEwdiznsJsoXdNVVEs"}
+2024-04-11 13:29:06	INFO	middlewares/core_middleware.go:85	committing transactions
