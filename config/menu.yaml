@@ -1,0 +1,146 @@
+---
+# MENU
+- name: CPANEL
+  icon: cpanel
+  sequence: 1000
+  actions:
+    - code: visible
+      name: VISIBLE
+- name: SETTING
+  icon: setting
+  sequence: 1100
+  actions:
+    - code: visible
+      name: VISIBLE
+  children:
+    - name: MENU
+      icon: menu
+      router: "/system/menu"
+      component: "system/menu/index"
+      sequence: 1101
+      actions:
+        - code: add
+          name: ADD
+          resources:
+            - method: POST
+              path: "/api/v1/menus"
+        - code: edit
+          name: EDIT
+          resources:
+            - method: GET
+              path: "/api/v1/menus/:id"
+            - method: PUT
+              path: "/api/v1/menus/:id"
+        - code: delete
+          name: DELETE
+          resources:
+            - method: DELETE
+              path: "/api/v1/menus/:id"
+        - code: query
+          name: QUERY
+          resources:
+            - method: GET
+              path: "/api/v1/menus"
+            - method: GET
+              path: "/api/v1/publics/sys/routes"
+        - code: query-actions
+          name: QUERY ACTIONS
+          resources:
+            - method: GET
+              path: "/api/v1/menus/:id/actions"
+        - code: disable
+          name: DISABLE
+          resources:
+            - method: PATCH
+              path: "/api/v1/menus/:id/disable"
+        - code: enable
+          name: ENABLE
+          resources:
+            - method: PATCH
+              path: "/api/v1/menus/:id/enable"
+    - name: ROLE
+      icon: role
+      router: "/system/role"
+      component: "system/role/index"
+      sequence: 1102
+      actions:
+        - code: add
+          name: ADD
+          resources:
+            - method: GET
+              path: "/api/v1/menus"
+            - method: POST
+              path: "/api/v1/roles"
+        - code: edit
+          name: EDIT
+          resources:
+            - method: GET
+              path: "/api/v1/menus"
+            - method: GET
+              path: "/api/v1/roles/:id"
+            - method: PUT
+              path: "/api/v1/roles/:id"
+        - code: delete
+          name: DELETE
+          resources:
+            - method: DELETE
+              path: "/api/v1/roles/:id"
+        - code: query
+          name: QUERY
+          resources:
+            - method: GET
+              path: "/api/v1/roles"
+            - method: GET
+              path: "/api/v1/roles/:id"
+        - code: disable
+          name: DISABLE
+          resources:
+            - method: PATCH
+              path: "/api/v1/roles/:id/disable"
+        - code: enable
+          name: ENABLE
+          resources:
+            - method: PATCH
+              path: "/api/v1/roles/:id/enable"
+    - name: USER
+      icon: user
+      router: "/system/user"
+      component: "system/user/index"
+      sequence: 1103
+      actions:
+        - code: add
+          name: ADD
+          resources:
+            - method: GET
+              path: "/api/v1/roles"
+            - method: POST
+              path: "/api/v1/users"
+        - code: edit
+          name: EDIT
+          resources:
+            - method: GET
+              path: "/api/v1/roles"
+            - method: GET
+              path: "/api/v1/users/:id"
+            - method: PUT
+              path: "/api/v1/users/:id"
+        - code: delete
+          name: DELETE
+          resources:
+            - method: DELETE
+              path: "/api/v1/users/:id"
+        - code: query
+          name: QUERY
+          resources:
+            - method: GET
+              path: "/api/v1/users"
+        - code: disable
+          name: DISABLE
+          resources:
+            - method: PATCH
+              path: "/api/v1/users/:id/disable"
+        - code: enable
+          name: ENABLE
+          resources:
+            - method: PATCH
+              path: "/api/v1/users/:id/enable"

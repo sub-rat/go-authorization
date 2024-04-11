@@ -1,0 +1,1182 @@
+definitions:
+  database.Datetime:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  dto.Login:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  dto.OrderDirection:
+    enum:
+    - ASC
+    - DESC
+    type: string
+    x-enum-varnames:
+    - OrderByASC
+    - OrderByDESC
+  dto.Pagination:
+    properties:
+      current:
+        type: integer
+      page_size:
+        type: integer
+      total:
+        type: integer
+    type: object
+  echo_response.Response:
+    properties:
+      data: {}
+      message: {}
+    type: object
+  models.Menu:
+    properties:
+      actions:
+        items:
+          $ref: '#/definitions/models.MenuAction'
+        type: array
+      component:
+        type: string
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      created_by:
+        type: string
+      hidden:
+        maximum: 1
+        minimum: -1
+        type: integer
+      icon:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      parent_id:
+        type: string
+      parent_path:
+        type: string
+      remark:
+        type: string
+      router:
+        type: string
+      sequence:
+        type: integer
+      status:
+        maximum: 1
+        minimum: -1
+        type: integer
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+    required:
+    - hidden
+    - icon
+    - name
+    - remark
+    - sequence
+    - status
+    type: object
+  models.MenuAction:
+    properties:
+      code:
+        type: string
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      id:
+        type: string
+      menu_id:
+        type: string
+      name:
+        type: string
+      resources:
+        items:
+          $ref: '#/definitions/models.MenuActionResource'
+        type: array
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+    required:
+    - code
+    - name
+    type: object
+  models.MenuActionResource:
+    properties:
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      method:
+        type: string
+      path:
+        type: string
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+    required:
+    - method
+    - path
+    type: object
+  models.MenuQueryResult:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/models.Menu'
+        type: array
+      pagination:
+        $ref: '#/definitions/dto.Pagination'
+    type: object
+  models.Role:
+    properties:
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      created_by:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      remark:
+        type: string
+      role_menus:
+        items:
+          $ref: '#/definitions/models.RoleMenu'
+        type: array
+      sequence:
+        type: integer
+      status:
+        maximum: 1
+        minimum: -1
+        type: integer
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+    required:
+    - name
+    - remark
+    - sequence
+    - status
+    type: object
+  models.RoleMenu:
+    properties:
+      action_id:
+        type: string
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      id:
+        type: string
+      menu_id:
+        type: string
+      role_id:
+        type: string
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+    required:
+    - action_id
+    - menu_id
+    - role_id
+    type: object
+  models.RoleQueryResult:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/models.Role'
+        type: array
+      pagination:
+        $ref: '#/definitions/dto.Pagination'
+    type: object
+  models.User:
+    properties:
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      created_by:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      status:
+        maximum: 1
+        minimum: -1
+        type: integer
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+      user_roles:
+        items:
+          $ref: '#/definitions/models.UserRole'
+        type: array
+      username:
+        type: string
+    required:
+    - full_name
+    - status
+    - username
+    type: object
+  models.UserQueryResult:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+      pagination:
+        $ref: '#/definitions/dto.Pagination'
+    type: object
+  models.UserRole:
+    properties:
+      created_at:
+        $ref: '#/definitions/database.Datetime'
+      id:
+        type: string
+      role_id:
+        type: string
+      updated_at:
+        $ref: '#/definitions/database.Datetime'
+      user_id:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/menus:
+    get:
+      parameters:
+      - in: query
+        name: current
+        type: integer
+      - enum:
+        - ASC
+        - DESC
+        in: query
+        name: direction
+        type: string
+        x-enum-varnames:
+        - OrderByASC
+        - OrderByDESC
+      - in: query
+        maximum: 1
+        minimum: -1
+        name: hidden
+        type: integer
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      - in: query
+        name: includeActions
+        type: boolean
+      - in: query
+        name: key
+        type: string
+      - in: query
+        name: name
+        type: string
+      - in: query
+        maximum: 128
+        name: pageSize
+        type: integer
+      - in: query
+        name: parentID
+        type: string
+      - in: query
+        name: prefixParentPath
+        type: string
+      - in: query
+        name: queryValue
+        type: string
+      - in: query
+        maximum: 1
+        minimum: -1
+        name: status
+        type: integer
+      - in: query
+        name: tree
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.MenuQueryResult'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Query
+      tags:
+      - Menu
+    post:
+      parameters:
+      - description: Menu
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Create
+      tags:
+      - Menu
+  /api/menus/{id}:
+    delete:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Delete By ID
+      tags:
+      - Menu
+    get:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Menu'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Get By ID
+      tags:
+      - Menu
+    put:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Menu
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Update By ID
+      tags:
+      - Menu
+  /api/menus/{id}/actions:
+    get:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.MenuAction'
+                  type: array
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: MenuActions Get By menuID
+      tags:
+      - Menu
+    put:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Menu
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/models.MenuAction'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Actions Update By menuID
+      tags:
+      - Menu
+  /api/menus/{id}/disable:
+    patch:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Disable By ID
+      tags:
+      - Menu
+  /api/menus/{id}/enable:
+    patch:
+      parameters:
+      - description: menu id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Menu Enable By ID
+      tags:
+      - Menu
+  /api/roles:
+    get:
+      parameters:
+      - in: query
+        name: current
+        type: integer
+      - enum:
+        - ASC
+        - DESC
+        in: query
+        name: direction
+        type: string
+        x-enum-varnames:
+        - OrderByASC
+        - OrderByDESC
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      - in: query
+        name: key
+        type: string
+      - in: query
+        name: name
+        type: string
+      - in: query
+        maximum: 128
+        name: pageSize
+        type: integer
+      - in: query
+        name: queryValue
+        type: string
+      - in: query
+        maximum: 1
+        minimum: -1
+        name: status
+        type: integer
+      - in: query
+        name: userID
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Role'
+                  type: array
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Get All
+      tags:
+      - Role
+    post:
+      parameters:
+      - description: Role
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Create
+      tags:
+      - Role
+  /api/roles/{id}:
+    delete:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Delete By ID
+      tags:
+      - Role
+    get:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Role'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Get By ID
+      tags:
+      - Role
+    put:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Role
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Update By ID
+      tags:
+      - Role
+  /api/roles/{id}/disable:
+    patch:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Disable By ID
+      tags:
+      - Role
+  /api/roles/{id}/enable:
+    patch:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Enable By ID
+      tags:
+      - Role
+  /api/users:
+    get:
+      parameters:
+      - in: query
+        name: current
+        type: integer
+      - enum:
+        - ASC
+        - DESC
+        in: query
+        name: direction
+        type: string
+        x-enum-varnames:
+        - OrderByASC
+        - OrderByDESC
+      - in: query
+        name: fullName
+        type: string
+      - in: query
+        name: key
+        type: string
+      - in: query
+        maximum: 128
+        name: pageSize
+        type: integer
+      - in: query
+        name: queryPassword
+        type: boolean
+      - in: query
+        name: queryValue
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: roleIDs
+        type: array
+      - in: query
+        maximum: 1
+        minimum: -1
+        name: status
+        type: integer
+      - in: query
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UserQueryResult'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Query
+      tags:
+      - User
+    post:
+      parameters:
+      - description: User
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Create
+      tags:
+      - User
+  /api/users/{id}:
+    delete:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Delete By ID
+      tags:
+      - User
+    get:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Get By ID
+      tags:
+      - User
+    put:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Update By ID
+      tags:
+      - User
+  /api/users/{id}/disable:
+    patch:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Disable By ID
+      tags:
+      - User
+  /api/users/{id}/enable:
+    patch:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Enable By ID
+      tags:
+      - User
+  /api/v1/publics/sys/routes:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "500":
+          description: internal error
+          schema:
+            type: string
+      security:
+      - Authorization: []
+      summary: SysRoutes
+      tags:
+      - Public
+  /api/v1/publics/user:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "500":
+          description: internal error
+          schema:
+            type: string
+      security:
+      - Authorization: []
+      summary: UserInfo
+      tags:
+      - Public
+  /api/v1/publics/user/login:
+    post:
+      parameters:
+      - description: Login
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "500":
+          description: internal error
+          schema:
+            type: string
+      summary: UserLogin
+      tags:
+      - Public
+  /api/v1/publics/user/logout:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            type: string
+      security:
+      - Authorization: []
+      summary: UserLogout
+      tags:
+      - Public
+  /api/v1/publics/user/menutree:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: bad request
+          schema:
+            type: string
+        "500":
+          description: internal error
+          schema:
+            type: string
+      security:
+      - Authorization: []
+      summary: UserMenuTree
+      tags:
+      - Public
+securityDefinitions:
+  Authorization:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
