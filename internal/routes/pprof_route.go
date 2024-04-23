@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/labstack/echo-contrib/echoprometheus"
 	"go-authorization/lib"
 	"net/http"
 	"net/http/pprof"
@@ -43,6 +44,7 @@ func (a PprofRoutes) Setup() {
 		r.GET("/threadcreate", handler(pprof.Handler("threadcreate").ServeHTTP))
 		r.GET("/trace", handler(pprof.Trace))
 	}
+	a.handler.Engine.GET("/metrics", echoprometheus.NewHandler())
 }
 
 func handler(h http.HandlerFunc) echo.HandlerFunc {

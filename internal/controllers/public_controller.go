@@ -50,9 +50,9 @@ type route struct {
 // @Summary SysRoutes
 // @Produce application/json
 // @Security Authorization
-// @Success 200 {string} echo_response.Response "ok"
-// @failure 400 {string} echo_response.Response "bad request"
-// @failure 500 {string} echo_response.Response "internal error"
+// @Success 200 {object} echo_response.Response "ok"
+// @failure 400 {object} echo_response.Response "bad request"
+// @failure 500 {object} echo_response.Response "internal error"
 // @Router /api/v1/publics/sys/routes [get]
 func (a publicController) SysRoutes(ctx echo.Context) error {
 	routes := make([]*route, 0)
@@ -72,9 +72,9 @@ func (a publicController) SysRoutes(ctx echo.Context) error {
 // @Summary UserInfo
 // @Security Authorization
 // @Produce application/json
-// @Success 200 {string} echo_response.Response{data=models.UserInfo} "ok"
-// @failure 400 {string} echo_response.Response "bad request"
-// @failure 500 {string} echo_response.Response "internal error"
+// @Success 200 {object} echo_response.Response{data=models.UserInfo} "ok"
+// @failure 400 {object} echo_response.Response "bad request"
+// @failure 500 {object} echo_response.Response "internal error"
 // @Router /api/v1/publics/user [get]
 func (a publicController) UserInfo(ctx echo.Context) error {
 	claims, _ := ctx.Get(constants.CurrentUser).(*dto.JwtClaims)
@@ -92,9 +92,9 @@ func (a publicController) UserInfo(ctx echo.Context) error {
 // @Summary UserMenuTree
 // @Produce application/json
 // @Security Authorization
-// @Success 200 {string} echo_response.Response{data=models.MenuTrees} "ok"
-// @failure 400 {string} echo_response.Response "bad request"
-// @failure 500 {string} echo_response.Response "internal error"
+// @Success 200 {object} echo_response.Response{data=models.MenuTrees} "ok"
+// @failure 400 {object} echo_response.Response "bad request"
+// @failure 500 {object} echo_response.Response "internal error"
 // @Router /api/v1/publics/user/menutree [get]
 func (a publicController) MenuTree(ctx echo.Context) error {
 	claims, _ := ctx.Get(constants.CurrentUser).(*dto.JwtClaims)
@@ -112,9 +112,9 @@ func (a publicController) MenuTree(ctx echo.Context) error {
 // @Summary UserLogin
 // @Produce application/json
 // @Param data body dto.Login true "Login"
-// @Success 200 {string} echo_response.Response "ok"
-// @failure 400 {string} echo_response.Response "bad request"
-// @failure 500 {string} echo_response.Response "internal error"
+// @Success 200 {object} echo_response.Response "ok"
+// @failure 400 {object} echo_response.Response "bad request"
+// @failure 500 {object} echo_response.Response "internal error"
 // @Router /api/v1/publics/user/login [post]
 func (a publicController) UserLogin(ctx echo.Context) error {
 	login := new(dto.Login)
@@ -145,7 +145,7 @@ func (a publicController) UserLogin(ctx echo.Context) error {
 // @Summary UserLogout
 // @Produce application/json
 // @Security Authorization
-// @Success 200 {string} echo_response.Response "success"
+// @Success 200 {object} echo_response.Response "success"
 // @Router /api/v1/publics/user/logout [post]
 func (a publicController) UserLogout(ctx echo.Context) error {
 	claims, ok := ctx.Get(constants.CurrentUser).(*dto.JwtClaims)

@@ -1369,19 +1369,19 @@ const docTemplate = `{
                     "200": {
                         "description": "ok",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     },
                     "400": {
                         "description": "bad request",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     },
                     "500": {
                         "description": "internal error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     }
                 }
@@ -1405,19 +1405,31 @@ const docTemplate = `{
                     "200": {
                         "description": "ok",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/echo_response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.UserInfo"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
                         "description": "bad request",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     },
                     "500": {
                         "description": "internal error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     }
                 }
@@ -1447,19 +1459,19 @@ const docTemplate = `{
                     "200": {
                         "description": "ok",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     },
                     "400": {
                         "description": "bad request",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     },
                     "500": {
                         "description": "internal error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     }
                 }
@@ -1483,7 +1495,7 @@ const docTemplate = `{
                     "200": {
                         "description": "success",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     }
                 }
@@ -1507,19 +1519,34 @@ const docTemplate = `{
                     "200": {
                         "description": "ok",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/echo_response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/models.MenuTree"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
                         "description": "bad request",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     },
                     "500": {
                         "description": "internal error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/echo_response.Response"
                         }
                     }
                 }
@@ -1719,6 +1746,56 @@ const docTemplate = `{
                 }
             }
         },
+        "models.MenuTree": {
+            "type": "object",
+            "properties": {
+                "actions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.MenuAction"
+                    }
+                },
+                "children": {
+                    "$ref": "#/definitions/models.MenuTrees"
+                },
+                "component": {
+                    "type": "string"
+                },
+                "hidden": {
+                    "type": "integer"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parent_id": {
+                    "type": "string"
+                },
+                "parent_path": {
+                    "type": "string"
+                },
+                "router": {
+                    "type": "string"
+                },
+                "sequence": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.MenuTrees": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/models.MenuTree"
+            }
+        },
         "models.Role": {
             "type": "object",
             "required": [
@@ -1846,6 +1923,26 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.UserRole"
                     }
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserInfo": {
+            "type": "object",
+            "properties": {
+                "full_name": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Role"
+                    }
+                },
+                "user_id": {
+                    "type": "string"
                 },
                 "username": {
                     "type": "string"

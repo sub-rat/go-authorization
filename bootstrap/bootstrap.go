@@ -62,9 +62,6 @@ func (app *Application) Start() {
 	app.Middleware.Setup()
 	app.Routes.Setup(app.Logger)
 
-	//e.GET("/metrics", echoprometheus.NewHandler())
-	//e.GET("/healthcheck", func(c echo.Context)
-
 	// Engine Start
 	if err := app.Handler.Engine.Start(app.Config.Http.ListenAddr()); err != nil {
 		if errors.Is(err, http.ErrServerClosed) {
@@ -81,5 +78,6 @@ func (app *Application) ProvideMiddleware() {
 		middlewares.NewCorsMiddleware(app.Handler, app.Logger),
 		middlewares.NewZapMiddleware(app.Handler, app.Logger),
 		middlewares.NewAuthMiddleware(app.Handler, app.Logger, app.Config, services.NewAuthService(app.Redis, app.Config)),
-		middlewares.NewCasbinMiddleware(app.Handler, app.Logger, app.Config, app.Services.CasbinService))
+		middlewares.NewCasbinMiddleware(app.Handler, app.Logger, app.Config, app.Services.CasbinService),
+		middlewares.NewPrometheusMiddleware(app.Handler, app.Logger))
 }

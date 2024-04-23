@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-// CasbinMiddleware CorsMiddleware middleware for cors
+// CasbinMiddleware PrometheusMiddleware middleware for cors
 type CasbinMiddleware struct {
 	handler       lib.HttpHandler
 	logger        lib.Logger

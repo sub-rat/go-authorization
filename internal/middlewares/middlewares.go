@@ -16,6 +16,7 @@ func NewMiddlewares(
 	zapMiddleware ZapMiddleware,
 	authMiddleware AuthMiddleware,
 	casbinMiddleware CasbinMiddleware,
+	prometheusMiddleware PrometheusMiddleware,
 ) Middlewares {
 	return Middlewares{
 		coreMiddleware,
@@ -23,6 +24,7 @@ func NewMiddlewares(
 		corsMiddleware,
 		authMiddleware,
 		casbinMiddleware,
+		prometheusMiddleware,
 	}
 }
 
