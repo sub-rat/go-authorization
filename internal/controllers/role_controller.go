@@ -45,7 +45,7 @@ func NewRoleController(
 // @success 200 {object} echo_response.Response{data=models.RoleQueryResult} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles [get]
+// @router /api/v1/roles [get]
 func (a *roleController) Query(ctx echo.Context) error {
 	param := new(models.RoleQueryParam)
 	if err := ctx.Bind(param); err != nil {
@@ -69,7 +69,7 @@ func (a *roleController) Query(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response{data=models.Roles} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles [get]
+// @router /api/v1/roles [get]
 func (a *roleController) GetAll(ctx echo.Context) error {
 	qr, err := a.roleService.Query(&models.RoleQueryParam{
 		PaginationParam: dto.PaginationParam{PageSize: 999, Current: 1},
@@ -91,7 +91,7 @@ func (a *roleController) GetAll(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response{data=models.Role} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles/{id} [get]
+// @router /api/v1/roles/{id} [get]
 func (a *roleController) Get(ctx echo.Context) error {
 	role, err := a.roleService.Get(ctx.Param("id"))
 	if err != nil {
@@ -110,7 +110,7 @@ func (a *roleController) Get(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles [post]
+// @router /api/v1/roles [post]
 func (a *roleController) Create(ctx echo.Context) error {
 	role := new(models.Role)
 	if err := ctx.Bind(role); err != nil {
@@ -139,7 +139,7 @@ func (a *roleController) Create(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles/{id} [put]
+// @router /api/v1/roles/{id} [put]
 func (a *roleController) Update(ctx echo.Context) error {
 	role := new(models.Role)
 	if err := ctx.Bind(role); err != nil {
@@ -163,7 +163,7 @@ func (a *roleController) Update(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles/{id} [delete]
+// @router /api/v1/roles/{id} [delete]
 func (a *roleController) Delete(ctx echo.Context) error {
 	trxHandle := ctx.Get(constants.DBTransaction).(*gorm.DB)
 	if err := a.roleService.WithTrx(trxHandle).Delete(ctx.Param("id")); err != nil {
@@ -182,7 +182,7 @@ func (a *roleController) Delete(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles/{id}/enable [patch]
+// @router /api/v1/roles/{id}/enable [patch]
 func (a *roleController) Enable(ctx echo.Context) error {
 	if err := a.roleService.UpdateStatus(ctx.Param("id"), 1); err != nil {
 		return echo_response.Response{Code: http.StatusBadRequest, Message: err}.JSON(ctx)
@@ -200,7 +200,7 @@ func (a *roleController) Enable(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/roles/{id}/disable [patch]
+// @router /api/v1/roles/{id}/disable [patch]
 func (a *roleController) Disable(ctx echo.Context) error {
 	if err := a.roleService.UpdateStatus(ctx.Param("id"), -1); err != nil {
 		return echo_response.Response{Code: http.StatusBadRequest, Message: err}.JSON(ctx)

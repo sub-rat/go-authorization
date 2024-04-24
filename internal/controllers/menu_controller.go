@@ -47,7 +47,7 @@ func NewMenuController(
 // @success 200 {object} echo_response.Response{data=models.MenuQueryResult} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus [get]
+// @router /api/v1/menus [get]
 func (a *menuController) Query(ctx echo.Context) error {
 	param := new(models.MenuQueryParam)
 	if err := ctx.Bind(param); err != nil {
@@ -75,7 +75,7 @@ func (a *menuController) Query(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response{data=models.Menu} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id} [get]
+// @router /api/v1/menus/{id} [get]
 func (a *menuController) Get(ctx echo.Context) error {
 	menu, err := a.menuService.Get(ctx.Param("id"))
 	if err != nil {
@@ -94,7 +94,7 @@ func (a *menuController) Get(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus [post]
+// @router /api/v1/menus [post]
 func (a *menuController) Create(ctx echo.Context) error {
 	menu := new(models.Menu)
 	if err := ctx.Bind(menu); err != nil {
@@ -123,7 +123,7 @@ func (a *menuController) Create(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id} [put]
+// @router /api/v1/menus/{id} [put]
 func (a *menuController) Update(ctx echo.Context) error {
 	menu := new(models.Menu)
 	if err := ctx.Bind(menu); err != nil {
@@ -147,7 +147,7 @@ func (a *menuController) Update(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id} [delete]
+// @router /api/v1/menus/{id} [delete]
 func (a *menuController) Delete(ctx echo.Context) error {
 	trxHandle := ctx.Get(constants.DBTransaction).(*gorm.DB)
 	if err := a.menuService.WithTrx(trxHandle).Delete(ctx.Param("id")); err != nil {
@@ -166,7 +166,7 @@ func (a *menuController) Delete(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id}/enable [patch]
+// @router /api/v1/menus/{id}/enable [patch]
 func (a *menuController) Enable(ctx echo.Context) error {
 	if err := a.menuService.UpdateStatus(ctx.Param("id"), 1); err != nil {
 		return echo_response.Response{Code: http.StatusBadRequest, Message: err}.JSON(ctx)
@@ -184,7 +184,7 @@ func (a *menuController) Enable(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id}/disable [patch]
+// @router /api/v1/menus/{id}/disable [patch]
 func (a *menuController) Disable(ctx echo.Context) error {
 	if err := a.menuService.UpdateStatus(ctx.Param("id"), -1); err != nil {
 		return echo_response.Response{Code: http.StatusBadRequest, Message: err}.JSON(ctx)
@@ -202,7 +202,7 @@ func (a *menuController) Disable(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response{data=models.MenuActions} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id}/actions [get]
+// @router /api/v1/menus/{id}/actions [get]
 func (a *menuController) GetActions(ctx echo.Context) error {
 	actions, err := a.menuService.GetMenuActions(ctx.Param("id"))
 	if err != nil {
@@ -222,7 +222,7 @@ func (a *menuController) GetActions(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/menus/{id}/actions [put]
+// @router /api/v1/menus/{id}/actions [put]
 func (a *menuController) UpdateActions(ctx echo.Context) error {
 	actions := make(models.MenuActions, 0)
 	if err := ctx.Bind(&actions); err != nil {

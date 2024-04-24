@@ -292,7 +292,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /api/menus:
+  /api/v1/menus:
     get:
       parameters:
       - in: query
@@ -401,7 +401,7 @@ paths:
       summary: Menu Create
       tags:
       - Menu
-  /api/menus/{id}:
+  /api/v1/menus/{id}:
     delete:
       parameters:
       - description: menu id
@@ -494,7 +494,7 @@ paths:
       summary: Menu Update By ID
       tags:
       - Menu
-  /api/menus/{id}/actions:
+  /api/v1/menus/{id}/actions:
     get:
       parameters:
       - description: menu id
@@ -564,7 +564,7 @@ paths:
       summary: Menu Actions Update By menuID
       tags:
       - Menu
-  /api/menus/{id}/disable:
+  /api/v1/menus/{id}/disable:
     patch:
       parameters:
       - description: menu id
@@ -592,7 +592,7 @@ paths:
       summary: Menu Disable By ID
       tags:
       - Menu
-  /api/menus/{id}/enable:
+  /api/v1/menus/{id}/enable:
     patch:
       parameters:
       - description: menu id
@@ -620,499 +620,6 @@ paths:
       summary: Menu Enable By ID
       tags:
       - Menu
-  /api/roles:
-    get:
-      parameters:
-      - in: query
-        name: current
-        type: integer
-      - enum:
-        - ASC
-        - DESC
-        in: query
-        name: direction
-        type: string
-        x-enum-varnames:
-        - OrderByASC
-        - OrderByDESC
-      - collectionFormat: csv
-        in: query
-        items:
-          type: string
-        name: ids
-        type: array
-      - in: query
-        name: key
-        type: string
-      - in: query
-        name: name
-        type: string
-      - in: query
-        maximum: 128
-        name: pageSize
-        type: integer
-      - in: query
-        name: queryValue
-        type: string
-      - in: query
-        maximum: 1
-        minimum: -1
-        name: status
-        type: integer
-      - in: query
-        name: userID
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            allOf:
-            - $ref: '#/definitions/echo_response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/models.Role'
-                  type: array
-              type: object
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Get All
-      tags:
-      - Role
-    post:
-      parameters:
-      - description: Role
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/models.Role'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Create
-      tags:
-      - Role
-  /api/roles/{id}:
-    delete:
-      parameters:
-      - description: role id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Delete By ID
-      tags:
-      - Role
-    get:
-      parameters:
-      - description: role id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            allOf:
-            - $ref: '#/definitions/echo_response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/models.Role'
-              type: object
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Get By ID
-      tags:
-      - Role
-    put:
-      parameters:
-      - description: role id
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Role
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/models.Role'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Update By ID
-      tags:
-      - Role
-  /api/roles/{id}/disable:
-    patch:
-      parameters:
-      - description: role id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Disable By ID
-      tags:
-      - Role
-  /api/roles/{id}/enable:
-    patch:
-      parameters:
-      - description: role id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: Role Enable By ID
-      tags:
-      - Role
-  /api/users:
-    get:
-      parameters:
-      - in: query
-        name: current
-        type: integer
-      - enum:
-        - ASC
-        - DESC
-        in: query
-        name: direction
-        type: string
-        x-enum-varnames:
-        - OrderByASC
-        - OrderByDESC
-      - in: query
-        name: fullName
-        type: string
-      - in: query
-        name: key
-        type: string
-      - in: query
-        maximum: 128
-        name: pageSize
-        type: integer
-      - in: query
-        name: queryPassword
-        type: boolean
-      - in: query
-        name: queryValue
-        type: string
-      - collectionFormat: csv
-        in: query
-        items:
-          type: string
-        name: roleIDs
-        type: array
-      - in: query
-        maximum: 1
-        minimum: -1
-        name: status
-        type: integer
-      - in: query
-        name: username
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            allOf:
-            - $ref: '#/definitions/echo_response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/models.UserQueryResult'
-              type: object
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Query
-      tags:
-      - User
-    post:
-      parameters:
-      - description: User
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Create
-      tags:
-      - User
-  /api/users/{id}:
-    delete:
-      parameters:
-      - description: user id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Delete By ID
-      tags:
-      - User
-    get:
-      parameters:
-      - description: user id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            allOf:
-            - $ref: '#/definitions/echo_response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/models.User'
-              type: object
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Get By ID
-      tags:
-      - User
-    put:
-      parameters:
-      - description: user id
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: User
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Update By ID
-      tags:
-      - User
-  /api/users/{id}/disable:
-    patch:
-      parameters:
-      - description: user id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Disable By ID
-      tags:
-      - User
-  /api/users/{id}/enable:
-    patch:
-      parameters:
-      - description: user id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "400":
-          description: bad request
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-        "500":
-          description: internal error
-          schema:
-            $ref: '#/definitions/echo_response.Response'
-      security:
-      - Authorization: []
-      summary: User Enable By ID
-      tags:
-      - User
   /api/v1/publics/sys/routes:
     get:
       produces:
@@ -1232,6 +739,499 @@ paths:
       summary: UserMenuTree
       tags:
       - Public
+  /api/v1/roles:
+    get:
+      parameters:
+      - in: query
+        name: current
+        type: integer
+      - enum:
+        - ASC
+        - DESC
+        in: query
+        name: direction
+        type: string
+        x-enum-varnames:
+        - OrderByASC
+        - OrderByDESC
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      - in: query
+        name: key
+        type: string
+      - in: query
+        name: name
+        type: string
+      - in: query
+        maximum: 128
+        name: pageSize
+        type: integer
+      - in: query
+        name: queryValue
+        type: string
+      - in: query
+        maximum: 1
+        minimum: -1
+        name: status
+        type: integer
+      - in: query
+        name: userID
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Role'
+                  type: array
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Get All
+      tags:
+      - Role
+    post:
+      parameters:
+      - description: Role
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Create
+      tags:
+      - Role
+  /api/v1/roles/{id}:
+    delete:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Delete By ID
+      tags:
+      - Role
+    get:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Role'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Get By ID
+      tags:
+      - Role
+    put:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Role
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Update By ID
+      tags:
+      - Role
+  /api/v1/roles/{id}/disable:
+    patch:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Disable By ID
+      tags:
+      - Role
+  /api/v1/roles/{id}/enable:
+    patch:
+      parameters:
+      - description: role id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: Role Enable By ID
+      tags:
+      - Role
+  /api/v1/users:
+    get:
+      parameters:
+      - in: query
+        name: current
+        type: integer
+      - enum:
+        - ASC
+        - DESC
+        in: query
+        name: direction
+        type: string
+        x-enum-varnames:
+        - OrderByASC
+        - OrderByDESC
+      - in: query
+        name: fullName
+        type: string
+      - in: query
+        name: key
+        type: string
+      - in: query
+        maximum: 128
+        name: pageSize
+        type: integer
+      - in: query
+        name: queryPassword
+        type: boolean
+      - in: query
+        name: queryValue
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: roleIDs
+        type: array
+      - in: query
+        maximum: 1
+        minimum: -1
+        name: status
+        type: integer
+      - in: query
+        name: username
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UserQueryResult'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Query
+      tags:
+      - User
+    post:
+      parameters:
+      - description: User
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Create
+      tags:
+      - User
+  /api/v1/users/{id}:
+    delete:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Delete By ID
+      tags:
+      - User
+    get:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/echo_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Get By ID
+      tags:
+      - User
+    put:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Update By ID
+      tags:
+      - User
+  /api/v1/users/{id}/disable:
+    patch:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Disable By ID
+      tags:
+      - User
+  /api/v1/users/{id}/enable:
+    patch:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "400":
+          description: bad request
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+        "500":
+          description: internal error
+          schema:
+            $ref: '#/definitions/echo_response.Response'
+      security:
+      - Authorization: []
+      summary: User Enable By ID
+      tags:
+      - User
 securityDefinitions:
   Authorization:
     in: header

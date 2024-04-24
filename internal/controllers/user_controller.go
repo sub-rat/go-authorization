@@ -44,7 +44,7 @@ func NewUserController(userService services.UserService, logger lib.Logger) IUse
 // @success 200 {object} echo_response.Response{data=models.UserQueryResult} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users [get]
+// @router /api/v1/users [get]
 func (a *userController) Query(ctx echo.Context) error {
 	param := new(models.UserQueryParam)
 	if err := ctx.Bind(param); err != nil {
@@ -71,7 +71,7 @@ func (a *userController) Query(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users [post]
+// @router /api/v1/users [post]
 func (a *userController) Create(ctx echo.Context) error {
 	user := new(models.User)
 	trxHandle := ctx.Get(constants.DBTransaction).(*gorm.DB)
@@ -102,7 +102,7 @@ func (a *userController) Create(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response{data=models.User} "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users/{id} [get]
+// @router /api/v1/users/{id} [get]
 func (a *userController) Get(ctx echo.Context) error {
 	user, err := a.userService.Get(ctx.Param("id"))
 	if err != nil {
@@ -122,7 +122,7 @@ func (a *userController) Get(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users/{id} [put]
+// @router /api/v1/users/{id} [put]
 func (a *userController) Update(ctx echo.Context) error {
 	user := new(models.User)
 	trxHandle := ctx.Get(constants.DBTransaction).(*gorm.DB)
@@ -148,7 +148,7 @@ func (a *userController) Update(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users/{id} [delete]
+// @router /api/v1/users/{id} [delete]
 func (a *userController) Delete(ctx echo.Context) error {
 	trxHandle := ctx.Get(constants.DBTransaction).(*gorm.DB)
 	err := a.userService.WithTrx(trxHandle).Delete(ctx.Param("id"))
@@ -168,7 +168,7 @@ func (a *userController) Delete(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users/{id}/enable [patch]
+// @router /api/v1/users/{id}/enable [patch]
 func (a *userController) Enable(ctx echo.Context) error {
 	err := a.userService.UpdateStatus(ctx.Param("id"), 1)
 	if err != nil {
@@ -187,7 +187,7 @@ func (a *userController) Enable(ctx echo.Context) error {
 // @success 200 {object} echo_response.Response "ok"
 // @failure 400 {object} echo_response.Response "bad request"
 // @failure 500 {object} echo_response.Response "internal error"
-// @router /api/users/{id}/disable [patch]
+// @router /api/v1/users/{id}/disable [patch]
 func (a *userController) Disable(ctx echo.Context) error {
 	err := a.userService.UpdateStatus(ctx.Param("id"), -1)
 	if err != nil {
