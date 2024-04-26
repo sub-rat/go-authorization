@@ -26,3 +26,12 @@ swagger:
 
 clean:
 	@rm -rf $(BUILD_ROOT)
+
+up:
+	docker-compose -f deployments/compose.yaml up -d
+
+down:
+	docker-compose -f deployments/compose.yaml down
+
+restart:
+	docker-compose -f deployments/compose.yaml restart

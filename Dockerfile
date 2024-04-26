@@ -57,6 +57,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
+RUN mkdir logs
 ARG UID=10001
 RUN adduser \
     --disabled-password \
@@ -70,10 +71,11 @@ USER appuser
 
 # Copy the executable from the "build" stage.
 COPY --from=build /bin/server /bin/
-
-COPY ./config/ ./config/
+#COPY ./config/ ./config/
 # Expose the port that the application listens on.
-EXPOSE 8080
+EXPOSE 2222
 
 # What the container should run when it is started.
-ENTRYPOINT [ "/bin/server api-server --config=./config/config.yaml --casbin_model=./config/casbin_model.conf" ]
+#ENTRYPOINT ["/bin/server"]
+#ENTRYPOINT [ "/bin/server" ,"api-server", "--config=./config/config.yaml","--casbin_model=./config/casbin_model.conf"]
+# api-server --config=./config/config.yaml --casbin_model=./config/casbin_model.conf

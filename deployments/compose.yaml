@@ -14,14 +14,63 @@ volumes:
   grafana_data: {}
 
 services:
-#  server:
-#    build:
-#      context: ../.
-#      target: final
-##    command:
-##      - "/bin/server api-server --config=./config/config.yaml --casbin_model=./config/casbin_model.conf"
-#    ports:
-#      - 2222:2222
+  migration:
+    container_name: migration
+    image: sub-rat/go-authorization
+    build:
+      context: ../.
+      target: final
+    command:
+      - /bin/server
+      - migrate
+      - --config=./config/config.yaml
+    volumes:
+      - ../config/:/config/
+      - ../logs/:/logs/
+
+  setup:
+    container_name: setup
+    image: sub-rat/go-authorization
+    build:
+      context: ../.
+      target: final
+    command:
+      - /bin/server
+      - setup
+      - --config=./config/config.yaml
+    volumes:
+      - ../config/:/config/
+      - ../logs/:/logs/
+    depends_on:
+      - migration
+
+  appserver:
+    container_name: appserver
+    image: sub-rat/go-authorization
+    build:
+      context: ../.
+      target: final
+    command:
+      - /bin/server
+      - api-server
+      - --config=./config/config.yaml
+      - --casbin_model=./config/casbin_model.conf
+    ports:
+      - "2222:2222"
+    volumes:
+      - ../config/:/config/
+      - ../logs/:/logs/
+    depends_on:
+      - migration
+      - setup
+      - redis
+
+  redis:
+    image: redis
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+    restart: always
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
@@ -30,7 +79,7 @@ services:
       - '--web.listen-address=:9100'
       - '--path.rootfs=/host'
     ports:
-      - 9100:9100
+      - "9100:9100"
     restart: unless-stopped
     volumes:
       - '/:/host:ro'
@@ -39,7 +88,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      - 9090:9090
+      - "9090:9090"
     restart: unless-stopped
     volumes:
       - ../config/:/etc/prometheus/
@@ -55,7 +104,7 @@ services:
     image: grafana/grafana
     container_name: grafana
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
     restart: unless-stopped
