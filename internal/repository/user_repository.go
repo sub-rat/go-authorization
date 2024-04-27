@@ -56,7 +56,7 @@ func (a userRepository) Query(param *models.UserQueryParam) (*models.UserQueryRe
 	}
 
 	if v := param.FullName; v != "" {
-		db = db.Where("realname = (?)", v)
+		db = db.Where("full_name = (?)", v)
 	}
 
 	if v := param.Status; v != 0 {
@@ -73,7 +73,7 @@ func (a userRepository) Query(param *models.UserQueryParam) (*models.UserQueryRe
 
 	if v := param.QueryValue; v != "" {
 		v = "%" + v + "%"
-		db = db.Where("username LIKE ? OR realname LIKE ? OR phone LIKE ? OR email LIKE ?", v, v, v, v)
+		db = db.Where("username LIKE ? OR full_name LIKE ? OR phone LIKE ? OR email LIKE ?", v, v, v, v)
 	}
 
 	db = db.Order(param.OrderParam.ParseOrder())

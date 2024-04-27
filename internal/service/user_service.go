@@ -311,7 +311,6 @@ func (a UserService) Create(user *models.User) (id string, err error) {
 	if err = a.userRepository.Create(user); err != nil {
 		return
 	}
-
 	err = a.casbinService.Enforcer.LoadPolicy()
 	if err != nil {
 		return "", err
