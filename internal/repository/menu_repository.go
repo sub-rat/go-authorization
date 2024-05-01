@@ -44,7 +44,7 @@ func (a menuRepository) WithTrx(trxHandle *gorm.DB) IMenuRepository {
 }
 
 func (a menuRepository) Query(param *models.MenuQueryParam) (*models.MenuQueryResult, error) {
-	db := a.db.ORM.Model(&models.Menu{})
+	db := a.db.ORM.Model(&models.Menu{}).Preload("Actions")
 
 	if v := param.IDs; len(v) > 0 {
 		db = db.Where("id IN (?)", v)

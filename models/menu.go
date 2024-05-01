@@ -23,7 +23,7 @@ type Menu struct {
 	Status     int         `gorm:"column:status;not null;" json:"status" validate:"required,max=1,min=-1"`
 	Remark     string      `gorm:"column:remark;" json:"remark" validate:"required"`
 	CreatedBy  string      `gorm:"column:created_by;not null;" json:"created_by"`
-	Actions    MenuActions `gorm:"-" json:"actions,omitempty"`
+	Actions    MenuActions `gorm:"foreignKey:MenuID;references:ID" json:"actions,omitempty"`
 }
 
 type MenuTree struct {
