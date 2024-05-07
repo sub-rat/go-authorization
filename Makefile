@@ -35,3 +35,6 @@ down:
 
 restart:
 	docker-compose -f deployments/compose.yaml restart
+
+gen:
+	@go run ./main.go gen -c ./config/config.yaml -n $(name)

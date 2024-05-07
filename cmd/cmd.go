@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/spf13/cobra"
 	"go-authorization/cmd/apiserver"
+	"go-authorization/cmd/generate"
 	"go-authorization/cmd/migrate"
 	"go-authorization/cmd/setup"
 	"os"
@@ -13,6 +14,7 @@ func init() {
 	rootCmd.AddCommand(apiserver.StartCmd)
 	rootCmd.AddCommand(migrate.StartCmd)
 	rootCmd.AddCommand(setup.StartCmd)
+	rootCmd.AddCommand(generate.StartCmd)
 }
 
 var rootCmd = &cobra.Command{
